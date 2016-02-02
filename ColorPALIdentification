@@ -3,10 +3,11 @@
   http://learn.parallax.com/propeller-c-tutorials 
 */
 #include "simpletools.h"
-#include "colorpal.h" 
+#include "colorpal.h"
+#include "ping.h"  
 
 colorPal *cpal;                              
-int cpSIO = 6;  //Find exact number, check pins                            
+int cpSIO = 15;  //Find exact number, check pins                            
 int r, g, b;
 
 int main()                                    
@@ -16,7 +17,13 @@ int main()
   //Numbers not even close to being correct.
   int r_scale = 3/*insert data*/;
   int g_scale = 2/*insert data*/;
-  int b_scale = 1/*insert data*/;           
+  int b_scale = 1/*insert data*/;
+
+  //Numbers not even close to being correct.
+  int x = 5; 
+  int y = 5;
+
+  int dist_CM = ping_cm(14);           
 
   while(1)                                 
   {
@@ -34,39 +41,120 @@ int main()
     
     if(67 > r > 60 && 65 > g > 42 && 40 > b > 27) 
     {
-       print("The color is yellow!\n");   
+       print("The color is yellow!\n"); 
+      
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is yellow!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }  
     }    
     else if(67 > r > 59 && 89 > g > 52 && 118 > b > 100) 
     {
        print("The color is white!\n");   
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is white!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }  
     }  
     else if(25 > r > 19 && 32 > g > 16 && 67 > b > 55) 
     {
        print("The color is blue!\n");   
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is blue!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }  
     }   
     else if(16 > r > 14 && 19 > g > 7 && 22 > b > 17) 
     {
-       print("The color is black!\n");   
+       print("The color is black!\n"); 
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is black!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }    
     } 
     else if(19 > r > 15 && 41 > g > 28 && 39 > b > 28)
     {
-       print("The color is green!\n");   
+       print("The color is green!\n");
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is green!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }     
     } 
     else if(73 > r > 68 && 47 > g > 32 && 52 > b > 39) 
     {
-       print("The color is orange!\n");   
+       print("The color is orange!\n");
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is orange!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }     
     } 
     else if(47 > r > 42 && 12 > g > 1 && 10 > b > 4) 
     {
        print("The color is red!\n");   
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is red!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }  
     } 
     else if(72 > r > 66 && 59 > g > 35 && 83 > b > 72) 
     {
        print("The color is pink!\n");   
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is pink!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }  
     } 
     else if(60 > r > 57 && 32 > g > 15 && 46 > b > 39) 
     {
        print("The color is magenta!\n");   
+       
+       if(25 > dist_CM > 10)
+       {
+         if(x > r > y && x > g > y && x > b > y)
+         {
+            print("The color is magenta!\n");   
+         }
+         print("The sensor readings might be inaccurate!\n");   
+       }  
     } 
 
     pause(1000);                             
