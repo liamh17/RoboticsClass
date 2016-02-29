@@ -1,0 +1,53 @@
+/*
+  Blank Simple Project.c
+  http://learn.paralla15.com/propeller-c-tutorials 
+*/
+#include "simpletools.h"                      // Include simple tools
+#include "wavplayer.h"
+#include "colorpal.h" 
+
+colorPal *cpal; 
+int cpSIO = 0; 
+int r, g, b;
+    
+int main()                                        // main function
+{
+  colorPal_open(cpSIO); 
+  
+  int DO = 22, CLK = 23, DI = 24, CS = 25;        // SD I/O pins
+  sd_mount(DO, CLK, DI, CS);                      // Mount SD card
+ 
+  const char orange[] = {"orange.wav"};
+  const char blue[] = {"blue.wav"};
+  const char red[] = {"red.wav"};
+  
+  while(1) 
+  {
+    colorPal_getRGB(cpal, &r, &g, &b); 
+    print("r = %d g = %d b = %d\n", r, g, b); 
+    
+    //Numbers are just e15amples. Do not use. 
+    if((r > 15) && (r < 20) && (g > 15) && (g < 20) && (b > 15) && (b < 20)) 
+    {
+      wav_play(orange);
+      
+      wav_volume(5);
+      pause(10000);  
+    }  
+    else if((r > 15) && (r < 20) && (g > 15) && (g < 20) && (b > 15) && (b < 20)) 
+    {
+      wav_play(blue);
+      
+      wav_volume(5);
+      pause(10000);  
+    } 
+    else if((r > 15) && (r < 20) && (g > 15) && (g < 20) && (b > 15) && (b < 20)) 
+    {
+      wav_play(red);
+      
+      wav_volume(5);
+      pause(10000);  
+    } 
+    pause(150); 
+  }
+}
