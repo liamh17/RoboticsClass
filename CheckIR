@@ -1,0 +1,39 @@
+/*
+  Blank Simple Project.c
+  http://learn.parallax.com/propeller-c-tutorials 
+*/
+#include "simpletools.h"                      // Include simple tools
+
+int main()                                    // Main function
+{
+  high(16);
+   
+  while(1)
+  {
+    int n = input(0); //
+    int s = input(2); //
+    int e = input(1); //
+    int w = input(3); // 
+    
+    print("%c", HOME); 
+    print("n = %d\ns = %d\ne = %d\nw = %d\n", n, s, e, w);   
+    
+    if(n == 0) 
+    {
+      print(" Facing north\n");   
+    }  
+    else if(s == 0) 
+    {
+      print(" Facing south\n");   
+    }
+    else if(e == 0) 
+    {
+      print(" Facing east\n");   
+    } 
+    else if(w == 0) 
+    {
+      print(" Facing west\n");   
+    }
+    pause(200); 
+  }  
+}
