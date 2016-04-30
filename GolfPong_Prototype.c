@@ -27,12 +27,20 @@ void operateClaw()
    int openClaw_Button = input(openClaw_ButtonPin); 
    int closeClaw_Button = input(closeClaw_ButtonPin); 
    
+   print("%c", HOME); 
+   print("OpenClaw_Button = %d\n", openClaw_Button); 
+   print("CloseClaw_Button = %d\n", closeClaw_Button);
+   
    if(openClaw_Button == 1) 
    {
-      servo_angle(stanServo, openClawAngle);   
+      print("Opening claw");
+      pause(50); 
+      servo_angle(clawServo, openClawAngle);   
    }
    else if(closeClaw_Button == 1) 
    {
-      servo_angle(stanServo, closeClawAngle);   
+      print("Closing claw"); 
+      pause(50);
+      servo_angle(clawServo, closeClawAngle);   
    }
 }
