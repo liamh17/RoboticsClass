@@ -35,8 +35,10 @@ int main()                                          // Main function
   drive_pins(16, 17);  
   
   adc_init(21, 20, 19, 18);                         // CS=21, SCL=20, DO=19, DI=18
-
   float lrV, udV;                                   // Voltage variables
+  
+  writeChar(xbee, CLS);
+  char c;
 
   while(1)                                          // Loop repeats indefinitely
   {
@@ -59,35 +61,31 @@ int main()                                          // Main function
       high(26);
       pause(200);
       low(26);
-      pause(200);   
+      pause(200);
+      c = 'f';    
     }
     if(udV < 2.4) 
     {
       print("Reverse!");
-      high(27); 
-      pause(200); 
-      low(27);
-      pause(200);   
+      c = 'r';    
     }
     if(lrV < 2.2) 
     {
       print("Left!");
-      high(26);
-      high(27);
-      pause(200);
-      low(26);
-      low(27);
-      pause(200);   
+      c = 'l'; 
     }
     if(lrV > 2.6)
     {
       print("Right!");
-      high(26);
-      low(27);
-      pause(200);
-      high(27);
-      low(26); 
+      c = 'r';  
     }
+    else 
+    {
+       c = 's';  
+    }   
+    
+    fdserial_txChar(xbee, c); 
+    pause(50); 
   }  
 }
 
