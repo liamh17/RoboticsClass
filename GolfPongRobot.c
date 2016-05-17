@@ -14,6 +14,8 @@
 #define clawOpen_angle 10
 #define clawClose_angle 1600
 
+#define lMotor 16
+#define rMotor 17
 #define liftServo 15
 #define clawServo 14
 
@@ -32,7 +34,7 @@ void handleButtonInput(void)
 int main()                                          // Main function
 {
   fdserial *xbee;
-  drive_pins(16, 17);  
+  drive_pins(lMotor, rMotor);  
   
   adc_init(21, 20, 19, 18);                         // CS=21, SCL=20, DO=19, DI=18
   float lrV, udV;                                   // Voltage variables
@@ -55,34 +57,29 @@ int main()                                          // Main function
     int clawClose = input(clawClose_b);
     pause(100);                                     // Wait 1/10 s
     
-    if(udV > 2.6)
+    // OPERATE ROBOT
+    checkJoystick();
+    if(c == 'f') 
     {
       print("Forward!"); 
-      high(26);
-      pause(200);
-      low(26);
-      pause(200);
-      c = 'f';    
+      servo_speeds(90, 45);   
     }
-    if(udV < 2.4) 
+    else if(c == 'r') 
     {
       print("Reverse!");
-      c = 'r';    
+      servo_speeds(-45, -90);  
     }
-    if(lrV < 2.2) 
+    else if(c == 'l') 
     {
       print("Left!");
-      c = 'l'; 
+      servo_speeds(-5, 100);   
     }
-    if(lrV > 2.6)
+    else if(c == 'r') 
     {
-      print("Right!");
-      c = 'r';  
+      print("Right!"); 
+      servo_speeds(100, -5);  
     }
-    else 
-    {
-       c = 's';  
-    }   
+    handleButtonInput(); 
     
     fdserial_txChar(xbee, c); 
     pause(50); 
@@ -108,4 +105,34 @@ void handleButtonInput()
     {
        servo_angle(clawServo, clawClose_angle); 
     }
+}
+void checkJoystick() 
+{
+   // GLOBAL CHAR C?
+   // CHECK IF STATEMENTS. REWRITE IF NEEDED.
+    if(udV > 2.6)
+    {
+      print("Forward!"); 
+      c = 'f';    
+    }
+    if(udV < 2.4) 
+    {
+      print("Reverse!");
+      c = 'r';    
+    }
+    if(lrV < 2.2) 
+    {
+      print("Left!");
+      c = 'l'; 
+    }
+    if(lrV > 2.6)
+    {
+      print("Right!");
+      c = 'r';  
+    }
+    else 
+    {
+       c = 's';  
+    }   
+    
 }
