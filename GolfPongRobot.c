@@ -9,8 +9,8 @@
 #include "servo.h" 
 
 // CHECK ALL ANGLES
-#define liftUp_angle 1800
-#define liftDown_angle 0
+#define liftUp_speed 150
+#define liftDown_speed -150
 #define clawOpen_angle 10
 #define clawClose_angle 1600
 
@@ -37,27 +37,24 @@ void checkJoystick(void);
 int main()                                          // Main function
 {
   xbee = fdserial_open(9, 8, 0, 9600); 
-  
+  writeChar(xbee, CLS);
+  char c; 
+    
   drive_pins(lMotor, rMotor);  
   
   adc_init(21, 20, 19, 18);                         // CS=21, SCL=20, DO=19, DI=18                           
-  
-  writeChar(xbee, CLS);
-  char c; 
-
-  float udV, lrV; 
-  int liftUp, liftDown, clawOpen, clawClose; 
-  
+     
   while(1)                                        
   {  
     putChar(HOME); 
     
-    udV = adc_volts(2);
-    lrV = adc_volts(3);
-    liftUp = input(liftUp_b);
-    liftDown = input(liftDown_b);
-    clawOpen = input(clawOpen_b);
-    clawClose = input(clawClose_b);
+    float udV = adc_volts(2);
+    float lrV = adc_volts(3);
+    
+    int liftUp = input(liftUp_b);
+    int liftDown = input(liftDown_b);
+    int clawOpen = input(clawOpen_b);
+    int clawClose = input(clawClose_b);
     
     if(udV > forwardThresh) 
     {
@@ -78,42 +75,28 @@ int main()                                          // Main function
       // Left
       c = 'l';     
     }
+    else if(liftUp == 1) 
+    {
+      // lift up
+      c = 'u';   
+    }
+    else if(liftDown == 1) 
+    {
+      // lift down
+      c = 'd';   
+    }
+    else if(clawOpen == 1) 
+    {
+      // claw open
+      c = 'o';
+    }
+    else if(clawClose == 1) 
+    {
+      // claw close
+      c = 'c';  
+    }
     
     fdserial_txChar(xbee, c); 
     pause(50); 
   }  
 }
-
-/*
-void handleButtonInput() 
-{
-  //Will handle all input from buttons and will also adjust pos. of lift and claw. 
-    
-    int liftUp = input(liftUp_b);
-    int liftDown = input(liftDown_b);
-    int clawOpen = input(clawOpen_b);
-    int clawClose = input(clawClose_b);
-    
-    print("LU = %d, LD = %d, CO = %d, CC = %d\n", liftUp, liftDown, clawOpen, clawClose);  
-    if(liftUp == 1) 
-    {
-       print("Lift Up"); 
-       servo_angle(liftServo, liftUp_angle); 
-    }
-    else if(liftDown == 1)
-    {
-       print("Lift Down");
-       servo_angle(liftServo, liftDown_angle);
-    }
-    else if(clawOpen == 1)
-    {
-       print("Claw Open"); 
-       servo_angle(clawServo, clawOpen_angle); 
-    }
-    else if(clawClose == 1)
-    {
-       print("Claw Close"); 
-       servo_angle(clawServo, clawClose_angle); 
-    }
-}
-*/
