@@ -1,6 +1,22 @@
 /*
-  Blank Simple Project.c
-  http://learn.parallax.com/propeller-c-tutorials 
+ * THIS SOFTWARE IS THE CODE THAT WILL BE UPLOADED TO THE
+ * ROBOT. IT HANDLES THE CHARACTER RECEIVED FROM THE 
+ * XBEE WIRELESS CHANNEL, AND THEN EXECUTES A SPECIFIC
+ * BLOCK OF CODE, FOR EXAMPLE, OPERATING THE LIFT.
+ * 
+ * THIS CODE HANDLES THE FUNCTION OF THE CLAW, LIFT, AND
+ * THE DRIVE SYSTEM. BASED ON THE FOLLOWING SERIES OF CHARACTERS,
+ * THE CODE PERFORMS SPECIFIC TASKS:
+ * 
+ *  FORWARD - F
+ *  REVERSE - R
+ *  LEFT = L
+ *  RIGHT = R
+ *  
+ *  CLAW OPEN = O
+ *  CLAW CLOSE = C
+ *  LIFT UP = U
+ *  LIFT DOWN = D
 */
 #include "simpletools.h"                      // Include simple tools
 #include "adcDCpropab.h" 
@@ -22,7 +38,6 @@ fdserial *xbee;
 
 int main()                                    // Main function
 {
-  // CHECK PARAMETERS
   xbee = fdserial_open(9, 8, 0, 9600);
   writeChar(xbee, CLS);
   
