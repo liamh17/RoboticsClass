@@ -1,6 +1,12 @@
 /*
-  Blank Simple Project.c
-  http://learn.parallax.com/propeller-c-tutorials 
+ * THIS IS THE CODE THAT WILL SEND CHARACTERS FROM
+ * THE JOYSTICK MICROCONTROLLER TO ROBOT'S MICROCONTROLLER
+ * VIA XBEE WIRELESS COMMMUNICATION ON CHANNEL (1). 
+ * 
+ * THIS SOFTWARE RECEIEVS THE INPUT FROM THE JOYSTICK, AND
+ * BUTTONS, THEN SENDS A CHARACTER OVER THE CHANNEL TO THE
+ * ROBOT, THE ROBOT WILL THEN EXECUTE A SPECIFIC BLOCK OF 
+ * CODE BASED SOLEY ON THE CHARACTER IT RECEIVES.
 */
 #include "adcDCpropab.h"                            // Include adcDCpropAB
 #include "simpletools.h"                            // Include simpletools
@@ -36,7 +42,6 @@ void handleButtonInput(void);
 void checkJoystick(void); 
 int main()                                          // Main function
 {
-  // CHECK PARAMETERS
   xbee = fdserial_open(9, 8, 0, 9600); 
   writeChar(xbee, CLS);
   char c; 
