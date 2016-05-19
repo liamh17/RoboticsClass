@@ -22,6 +22,7 @@ fdserial *xbee;
 
 int main()                                    // Main function
 {
+  // CHECK PARAMETERS
   xbee = fdserial_open(9, 8, 0, 9600);
   writeChar(xbee, CLS);
   
